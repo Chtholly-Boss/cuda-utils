@@ -1,0 +1,11 @@
+CompileFlags:
+  Add:
+    - --no-cuda-version-check
+  Remove:
+    [
+      "-rdc=true",
+      "--options-file",
+      "-forward-unknown-to-host-compiler",
+      "-arch",
+      "--generate-code=arch=compute_86,code=[compute_86,sm_86]",
+    ]
