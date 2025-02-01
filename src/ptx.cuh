@@ -7,6 +7,12 @@
 namespace ptx {
 using fp16 = half;
 
+// strictly, this is not a inline ptx, but it will be translated to inline
+// vector loading like LDG.128/LDS.128, .etc
+__device__ __forceinline__ void cpy128bit(void *dst, void *src) {
+    *reinterpret_cast<float4 *>(dst) = *reinterpret_cast<float4 *>(src);
+}
+
 __device__ __forceinline__ void ldmatrix_sync(fp16 *dst, void *addr) {
     asm volatile(
         "ldmatrix.sync.aligned.x4.m8n8.shared.b16 {%0, %1, %2, %3}, [%4];"
